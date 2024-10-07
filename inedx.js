@@ -2,6 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose');
 const userRoutes=require('./routes/user')
 const jwt = require('jsonwebtoken'); //for token
+const cors = require('cors')
 const authRoutes= require('./routes/authRoute')
 require('dotenv').config();
 
@@ -14,7 +15,7 @@ const dbUrl=process.env.DBURL
 main().catch(err => console.log(err));
 
 async function main() {
-  await mongoose.connect(dbUrl, { useNewUrlParser: true, useUnifiedTopology: true });
+  await mongoose.connect(dbUrl);
   console.log("Database connected...")
 }
 
@@ -37,7 +38,8 @@ const auth=(req,res,next)=>{
   }
   
 }
-server.use(express.json())
+server.use(express.json());
+server.use(cors());
 server.use('/auth',authRoutes.router)
 server.use('/users',auth,userRoutes.router)
 
