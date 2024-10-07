@@ -1,0 +1,30 @@
+for password - use bcrypt
+ const hash = await bcrypt.hash(req.body.password, 10);
+ user.password = hash;
+ password convert into hash value in one way we can't  but when we login then how can we compare password
+ //verify password - is user is same 
+const isAuth =  bcrypt.compareSync(req.body.password, user.password);
+
+
+================== jwt flow ==========================
+
+[User Signup] --> [Server: Create User]
+[User Login] --> [Server: Validate Credentials]
+    |                      |
+    v                      v
+[Generate JWT] <-- [If valid]
+    |
+    v
+[Send JWT to Client] --> [User: Store JWT]
+    |
+    v
+[User: Access Protected Route] --> [Server: Verify Token]
+    |
+    v
+[If valid] --> [Return Resource]
+    |
+[If invalid] --> [Return Unauthorized Error]
+
+================== rsa 2048 key generator ===================
+Private key used to Generate Token
+public key is used to verify 
