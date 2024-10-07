@@ -9,12 +9,12 @@ const server = express()
 // const publicKey = process.env.PUBLIC_KEY
 const secretKey=process.env.SECRET
 
-
+const dbUrl=process.env.DBURL
 // database connection
 main().catch(err => console.log(err));
 
 async function main() {
-  await mongoose.connect('mongodb://127.0.0.1:27017/ecommerce');
+  await mongoose.connect(dbUrl, { useNewUrlParser: true, useUnifiedTopology: true });
   console.log("Database connected...")
 }
 
