@@ -63,7 +63,7 @@ exports.forgetPassword = async (req, res) => {
 
         if (!user) return res.status(404).json("User Not Found");
 
-        const token = jwt.sign({ email: email, _id: user.id }, secretKey, { expiresIn: '1m' });
+        const token = jwt.sign({ email: email, _id: user.id }, secretKey, { expiresIn: '1hr' });
         user.resetToken=token
         await user.save();
         const link = `http://localhost:5000/auth/reset-password/${user._id}/${token}`;
