@@ -20,7 +20,7 @@ async function main() {
 
 server.use(express.json());
 server.use(cors());
-server.use('/auth',userRoute.router);
+server.use('/auth',authRoute.router);
 server.use('/users', auths, userRoute.router);
 
 
