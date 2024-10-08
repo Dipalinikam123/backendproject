@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken'); //for token
 const secretKey = process.env.SECRET
 
-console.log('Secret Key:', secretKey); // Debugging line
+// console.log('Secret Key:', secretKey); // Debugging line
 
 //middleware
 //verification- is user Register or not 

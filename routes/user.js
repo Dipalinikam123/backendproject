@@ -7,6 +7,6 @@ routes
     .get('/:id', userController.getUser)
     .put('/:id', userController.updateUser)
     .delete('/:id', userController.deleteUser)
-    .post('/updatepassword/:id', userController.updatePassword)
+    .post('/update-password/:id', userController.updatePassword)
 
 exports.router = routes    
