@@ -2,7 +2,7 @@
   "name": "js-practice",
   "version": "1.0.0",
   "description": "node js practice",
-  "main": "inedx.js",
+  "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
     "run": "node index.js",
