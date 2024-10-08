@@ -29,7 +29,6 @@ This is a Node.js API for managing users. It provides endpoints for creating, up
 - **dotenv**: Used to manage environment variables, such as the JWT secret key and database URI.
 - **Nodemailer** (optional): For sending emails, especially for password reset or other notifications.
 
-
 ## Installation
 
 1. Clone the repository:
@@ -37,48 +36,47 @@ This is a Node.js API for managing users. It provides endpoints for creating, up
    ```bash
    git clone https://github.com/Dipalinikam123/backendproject.git
 
+   ```
 
 2. Install dependencies:
 
-    ```terminal
-    npm install
+   ```terminal
+   npm install
+
+   ```
 
 3. Start the server:
-    npm start
+   npm start
 
 ## API Endpoints
 
-  # Create User:- 
-   **Endpoint**: `POST /auth/sign-up`
-  
-  # Login User:- 
-   **Endpoint**: `POST /auth/sign-in`
-   
-  # Get All User:- 
-   **Endpoint**: `GET /users`
+Create User:-
+**Endpoint**: `POST /auth/sign-up`
 
-  # Get User By Id:- 
-   **Endpoint**: `GET /users/:id`
+Login User:-
+**Endpoint**: `POST /auth/sign-in`
 
-  # Update User By Id:- 
-   **Endpoint**: `PUT /users/:id`
+Get All User:-
+**Endpoint**: `GET /users`
 
-  # Delete User By Id:- 
-   **Endpoint**: `DELETE /users/:id`
+Get User By Id:-
+**Endpoint**: `GET /users/:id`
 
-  # update Password By Id:- 
-   **Endpoint**: `POST /users/update-password/:id`
+Update User By Id:-
+**Endpoint**: `PUT /users/:id`
 
-  # Forgot password:- 
-   **Endpoint**: `POST /auth/forget-password`
+Delete User By Id:-
+**Endpoint**: `DELETE /users/:id`
 
-  # Reset PAssword:- 
-   **Endpoint**: `POST /users/reset-password/:id/:token`
-   
+update Password By Id:-
+**Endpoint**: `POST /users/update-password/:id`
 
+Forgot password:-
+**Endpoint**: `POST /auth/forget-password`
 
-
-
+Reset PAssword:-
+**Endpoint**: `POST /users/reset-password/:id/:token`
 
 ## Error Handling
+
 This API handles errors by returning appropriate HTTP status codes and messages. Ensure to check the response body for error details.
