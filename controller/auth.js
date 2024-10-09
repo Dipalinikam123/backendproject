@@ -17,8 +17,9 @@ const {
     TOKEN_VERIFICATION_FAIL
 } = require('../utils/constant');
 
+
 const secretKey = process.env.SECRET
-const forgetPassUrl = process.env.FORGOT_PASS_URL
+const forgetPassUrl = process.env.FORGOT_PASS_URL ||  process.env.FORGOT_PASS_URL_LOCAL
 const nodeMailer = process.env.NODE_MAILER_EMAIL
 const password = process.env.PASSWORD
 const hostMail = process.env.HOST_MAIL
