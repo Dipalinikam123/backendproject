@@ -1,4 +1,3 @@
-
 const model = require('../model/user')
 const bcrypt = require('bcrypt'); //for password
 const { GET_USER_FAIL,
@@ -15,7 +14,7 @@ const User = model.User
 
 exports.getUsers = async (req, res) => {
   try {
-    const users = await User.find()
+    const users = await User.find().select('-password')
     res.status(200).json({ success: 'Ok', users })
 
   } catch (error) {

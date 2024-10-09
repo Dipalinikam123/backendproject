@@ -74,7 +74,7 @@ update Password By Id:-
 Forgot password:-
 **Endpoint**: `POST /auth/forget-password`
 
-Reset PAssword:-
+Reset Password:-
 **Endpoint**: `POST /users/reset-password/:id/:token`
 
 ## Error Handling
