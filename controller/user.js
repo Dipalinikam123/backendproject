@@ -58,14 +58,17 @@ exports.deleteUser = async (req, res) => {
 
 
 exports.profile = (req, res) => {
+  // Access the user email from req.user.email
   const userEmail = req.user.email;
 
-  User.findOne({ email: userEmail }).select('-password')  
+  // Fetch user profile from the database using userEmail and exclude the password field
+  User.findOne({ email: userEmail })
+    .select('-password') // Exclude the password field
     .then(user => {
       if (!user) return res.status(404).send('User not found');
-      res.json(user); 
+      res.json(user); // Send the user data in the response, without the password
     })
-    .catch(err => res.status(500).send('Server error')); 
+    .catch(err => res.status(500).send('Server error')); // Handle errors
 };
 
 exports.updatePassword = async (req, res) => {
