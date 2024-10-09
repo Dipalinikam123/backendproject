@@ -60,7 +60,7 @@ exports.deleteUser = async (req, res) => {
 exports.profile = (req, res) => {
   const userEmail = req.user.email;
 
-  User.findOne({ email: userEmail })  
+  User.findOne({ email: userEmail }).select('-password')  
     .then(user => {
       if (!user) return res.status(404).send('User not found');
       res.json(user); 
