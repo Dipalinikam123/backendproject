@@ -29,7 +29,7 @@ exports.createUser = async (req, res) => {
     try {
         const user = new User(req.body);
         //generate token on new user
-        const token = jwt.sign({ email: req.body.email }, secretKey);
+        const token = jwt.sign({ email: req.body.email, }, secretKey);
         //sending token
         user.token = token
 
@@ -69,6 +69,7 @@ exports.loginUser = async (req, res) => {
     }
 }
 exports.forgetPassword = async (req, res) => {
+    console.log("fjhgjrhgthjnjkn")
     try {
         const email = req.body.email;
         const user = await User.findOne({ email: email });

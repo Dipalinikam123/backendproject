@@ -56,6 +56,18 @@ exports.deleteUser = async (req, res) => {
   }
 }
 
+
+exports.profile = (req, res) => {
+  const userEmail = req.user.email;
+
+  User.findOne({ email: userEmail })  
+    .then(user => {
+      if (!user) return res.status(404).send('User not found');
+      res.json(user); 
+    })
+    .catch(err => res.status(500).send('Server error')); 
+};
+
 exports.updatePassword = async (req, res) => {
   const userId = req.params.id;
   const { currentPassword, newPassword } = req.body; // Destructure current and new passwords

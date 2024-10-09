@@ -4,6 +4,7 @@ const routes = express.Router()
 
 routes
     .get('/', userController.getUsers)
+    .get('/profile', userController.profile)
     .get('/:id', userController.getUser)
     .put('/:id', userController.updateUser)
     .delete('/:id', userController.deleteUser)
