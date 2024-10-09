@@ -37,7 +37,7 @@ exports.createUser = async (req, res) => {
         user.password = hash;
 
         await user.save();
-        res.status(201).json({ success: true })
+        res.status(201).json({ success: true,token})
     } catch (error) {
         res.status(401).json({ success: false, message: error.message })
     }
