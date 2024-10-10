@@ -4,6 +4,7 @@ const cors = require('cors')
 require('dotenv').config();
 const {userRoute,authRoute} = require('./routes')
 const authentication = require('./middleware')
+const path = require('path');
  const auths=authentication.authMiddleware
 const server = express();
 // const publicKey = process.env.PUBLIC_KEY
@@ -15,8 +16,6 @@ async function main() {
   await mongoose.connect(dbUrl);
   console.log("Database connected...")
 }
-
-
 
 server.use(express.json());
 server.use(cors());

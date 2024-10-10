@@ -1,6 +1,9 @@
 const bcrypt = require('bcrypt'); //for password
 const jwt = require('jsonwebtoken'); //for token
 const model = require('../model/user')
+const ejs = require('ejs')
+const path = require('path')
+
 const User = model.User
 const nodemailer = require("nodemailer");
 const {
@@ -28,17 +31,17 @@ exports.createUser = async (req, res) => {
     // console.log("--new user", req.body)
     try {
         const user = new User(req.body);
-        
+
         //hash password- bcrypt
         const hash = await bcrypt.hash(req.body.password, 10);
         user.password = hash;
         await user.save();
 
-        const token = jwt.sign({ _id: user.id, email: user.email },secretKey,);
+        const token = jwt.sign({ _id: user.id, email: user.email }, secretKey,);
         // Save the token to the user document and update the database
         user.token = token;
         await user.save();
-        res.status(201).json({ success: true,token})
+        res.status(201).json({ success: true, token })
     } catch (error) {
         res.status(401).json({ success: false, message: error.message })
     }
@@ -56,7 +59,7 @@ exports.loginUser = async (req, res) => {
 
         if (isAuth) {
             //generate token on login user
-            const token = jwt.sign({ email: req.body.email, _id: user.id  }, secretKey);
+            const token = jwt.sign({ email: req.body.email, _id: user.id }, secretKey);
             user.token = token;
             await user.save();
             return res.json({ message: LOGIN_SUCCESS, token });
@@ -116,7 +119,10 @@ exports.verifyResetToken = async (req, res) => {
         // console.log("---olduser",oldUser)
         !oldUser && res.json({ message: USER_NOT_FOUND })
         const verify = jwt.verify(token, secretKey)
-        res.send(VERIFIED)
+        ejs.renderFile(path.resolve(__dirname, '../views/index.ejs'), { product: products[0] }, function (err, str) {
+            res.send(str)
+            // str => Rendered HTML string
+        });
 
     } catch (error) {
         res.send(NOT_VERIFIED)

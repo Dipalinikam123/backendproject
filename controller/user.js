@@ -58,23 +58,21 @@ exports.deleteUser = async (req, res) => {
 
 
 exports.profile = (req, res) => {
-  // Access the user email from req.user.email
   const userId = req.user._id;
 
-  // Fetch user profile from the database using userEmail and exclude the password field
   User.findById(userId)
-    .select('-password') // Exclude the password field
+    .select('-password') 
     .then(user => {
       if (!user) return res.status(404).send('User not found');
-      res.json(user); // Send the user data in the response, without the password
+      res.json(user); 
     })
-    .catch(err => res.status(500).send('Server error')); // Handle errors
+    .catch(err => res.status(500).send('Server error')); 
 };
 
 exports.updatePassword = async (req, res) => {
   const userId = req.user._id;
   // console.log("----id99999",userEmail)
-  const { currentPassword, newPassword } = req.body; // Destructure current and new passwords
+  const { currentPassword, newPassword } = req.body; 
 
   try {
     const user = await User.findById(userId);
