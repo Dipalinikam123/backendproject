@@ -18,6 +18,7 @@ async function main() {
 }
 
 server.use(express.json());
+server.use(express.urlencoded({ extended: false }));
 server.use(cors());
 server.use('/auth',authRoute.router);
 server.use('/users', auths, userRoute.router);

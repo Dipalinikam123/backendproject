@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="UTF-8" />
@@ -9,13 +9,11 @@
 </head>
 
 <body>
-    <h1>
-        <%= email%>
-    </h1>
-    <form action="" method="post">
-        <input type="password" name="password" id="password" /><br />
-        <input type="password" name="confirm-password" id="confirm-password" /><br />
-        <input type="submit" value="submit" />
+    <h1>Reset Password for <%= email %></h1>
+    <form action="/auth/reset-password/<%= id %>/<%= token %>" method="post">
+        <input type="password" name="password" id="password" placeholder="Enter New Password" required /><br /><br />
+        <input type="password" name="confirmPassword" id="confirm-password" placeholder="Confirm Password" required /><br /><br />
+        <input type="submit" value="Submit" />
     </form>
 </body>
 

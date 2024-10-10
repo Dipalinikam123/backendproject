@@ -72,7 +72,7 @@ exports.loginUser = async (req, res) => {
     }
 }
 exports.forgetPassword = async (req, res) => {
-    console.log("fjhgjrhgthjnjkn")
+
     try {
         const email = req.body.email;
         const user = await User.findOne({ email: email });
@@ -112,20 +112,36 @@ exports.forgetPassword = async (req, res) => {
 }
 
 exports.verifyResetToken = async (req, res) => {
-    const { id, token } = req.params
+    const { id, token } = req.params;
     // console.log("---reset", id, token)
     try {
-        const oldUser = await User.findOne({ _id: id })
-        // console.log("---olduser",oldUser)
-        !oldUser && res.json({ message: USER_NOT_FOUND })
-        const verify = jwt.verify(token, secretKey)
-        ejs.renderFile(path.resolve(__dirname, '../views/index.ejs'), { product: products[0] }, function (err, str) {
-            res.send(str)
-            // str => Rendered HTML string
-        });
+        const oldUser = await User.findOne({ _id: id });
+        // console.log("---olduser", oldUser)
+
+        if (!oldUser) {
+            return res.status(404).json({ message: USER_NOT_FOUND });
+        }
+        const verify = jwt.verify(token, secretKey);
+
+        ejs.renderFile(
+            path.resolve(__dirname, '../views/index.ejs'),
+            {
+                email: verify.email,
+                id: id,
+                token: token
+            }, // Pass the email to the template
+            function (err, str) {
+                if (err) {
+                    console.error(err);
+                    return res.status(500).send("Error rendering the page.");
+                }
+                res.send(str); // Send the rendered HTML string
+            }
+        );
 
     } catch (error) {
-        res.send(NOT_VERIFIED)
+        console.error(error); // Log the error for debugging
+        res.status(400).send(NOT_VERIFIED);
     }
 }
 
@@ -139,11 +155,8 @@ exports.resetPassword = async (req, res) => {
         if (!user) return res.status(404).json({ message: USER_NOT_FOUND });
 
         const tokenVerify = jwt.verify(token, secretKey);
-        // console.log("----jwtToken---", tokenVerify)
 
         if (user.resetToken !== token || !tokenVerify) {
-            // console.log("====usertoken=", user.resetToken)
-            // console.log("=====token", token)
             return res.status(400).json({ message: EXPIRE_LINK });
         }
 
@@ -152,14 +165,16 @@ exports.resetPassword = async (req, res) => {
         }
 
         const hash = await bcrypt.hash(password, 10);
-        user.password = hash;
 
-        user.resetToken = null;
-        await user.save();
+        await User.updateOne(
+            { _id: id },
+            { $set: { password: hash, resetToken: null } } 
+        );
 
+        // Respond with a success message
         return res.status(200).json({ message: RESET_PASSWORD_SUCCESS });
     } catch (error) {
-        // console.error(error);
+        console.error(error);
         return res.status(400).json({ message: TOKEN_VERIFICATION_FAIL });
     }
 };

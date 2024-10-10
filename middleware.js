@@ -18,7 +18,7 @@ const auth = (req, res, next) => {
         }
 
         const decoded = jwt.verify(token, secretKey);
-        console.log("----req--",decoded)
+        // console.log("----req--",decoded)
 
         if (decoded.email) {
             req.user = decoded;
