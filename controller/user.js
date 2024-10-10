@@ -59,10 +59,10 @@ exports.deleteUser = async (req, res) => {
 
 exports.profile = (req, res) => {
   // Access the user email from req.user.email
-  const userEmail = req.user.email;
+  const userId = req.user._id;
 
   // Fetch user profile from the database using userEmail and exclude the password field
-  User.findOne({ email: userEmail })
+  User.findById(userId)
     .select('-password') // Exclude the password field
     .then(user => {
       if (!user) return res.status(404).send('User not found');
@@ -72,7 +72,8 @@ exports.profile = (req, res) => {
 };
 
 exports.updatePassword = async (req, res) => {
-  const userId = req.params.id;
+  const userId = req.user._id;
+  // console.log("----id99999",userEmail)
   const { currentPassword, newPassword } = req.body; // Destructure current and new passwords
 
   try {

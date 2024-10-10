@@ -6,7 +6,6 @@ const secretKey = process.env.SECRET
 //middleware
 //verification- is user Register or not 
 const auth = (req, res, next) => {
-//  console.log("----req--",req)
     try {
         const tokenCheck = req.get('Authorization');
         if (!tokenCheck) {
@@ -19,7 +18,8 @@ const auth = (req, res, next) => {
         }
 
         const decoded = jwt.verify(token, secretKey);
-        
+        console.log("----req--",decoded)
+
         if (decoded.email) {
             req.user = decoded;
             // console.log("------reeq",req.user)

@@ -28,15 +28,15 @@ exports.createUser = async (req, res) => {
     // console.log("--new user", req.body)
     try {
         const user = new User(req.body);
-        //generate token on new user
-        const token = jwt.sign({ email: req.body.email, }, secretKey);
-        //sending token
-        user.token = token
-
+        
         //hash password- bcrypt
         const hash = await bcrypt.hash(req.body.password, 10);
         user.password = hash;
+        await user.save();
 
+        const token = jwt.sign({ _id: user.id, email: user.email },secretKey,);
+        // Save the token to the user document and update the database
+        user.token = token;
         await user.save();
         res.status(201).json({ success: true,token})
     } catch (error) {
@@ -56,7 +56,7 @@ exports.loginUser = async (req, res) => {
 
         if (isAuth) {
             //generate token on login user
-            const token = jwt.sign({ email: req.body.email }, secretKey);
+            const token = jwt.sign({ email: req.body.email, _id: user.id  }, secretKey);
             user.token = token;
             await user.save();
             return res.json({ message: LOGIN_SUCCESS, token });
