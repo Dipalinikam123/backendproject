@@ -17,8 +17,10 @@ const userSchema = new Schema({
         required: true
     },
     password: { type: String, minLength: 6, required: true }, //password
-    dob: { type: Date, required: true }, // Date of birth
-    gender: { type: String, required: true }, // Gender
+    // dob: { type: Date, required: true }, // Date of birth
+    dob: { type: Date }, // Date of birth
+    // gender: { type: String, required: true }, // Gender
+    gender: { type: String}, // Gender
     hobby: { type: [String] }, // Hobbies as an array of strings
     token: { type: String, default: null }, //  token field
     resetToken:{ type: String, default: null }//password reset token field
